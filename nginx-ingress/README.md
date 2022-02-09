@@ -26,6 +26,13 @@ kubectl config set-context --current --namespace=ingress-nginx
 
 ## Add Your Ingress Controller
 
+
+Add the Helm repo for bitnami
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+
+
 ```
 helm install ingress bitnami/nginx-ingress-controller
 ```
