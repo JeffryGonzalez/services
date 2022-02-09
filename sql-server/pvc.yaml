@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sql-pvc
+  namespace: hypertheory
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  # This means it can be mounted as read/write by a single node. Careful - multiple pods on the same node can read and write to it.
+  # we are using the default storage class and volumeMode here.

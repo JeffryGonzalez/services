@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playlists-api
+  namespace: hypertheory
+spec:
+  selector:
+    matchLabels:
+      app: playlists-api
+  template:
+    metadata:
+      labels:
+        app: playlists-api
+    spec:
+      containers:
+      - name: playlists-api
+        image: jeffrygonzalez/playlistsapi-asm:v1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80

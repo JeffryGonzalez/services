@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql
+spec:
+  selector:
+    matchLabels:
+      app: mssql
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      containers:
+        - name: mssql
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          resources:
+            limits:
+              memory: "2Gi" # REALLY important to limit Sql Server. It will, by default, take 80% of available memory at startup.
+              cpu: "500m"
+          ports:
+            - containerPort: 1433
+          env:
+            - name: MSSQL_PID
+              value: "Express" # You must select the appropriate product ID for the license you have.
+            - name: ACCEPT_EULA
+              value: "Y" # You accept the end-user license agreement
+            - name: SA_PASSWORD
+              value: "TokyoJoe138!" # This should be in a secret, but since this is just for local development....
+          volumeMounts:
+            - mountPath: /var/opt/mssql
+              name: mssqldb
+      volumes:
+        - name: mssqldb
+          persistentVolumeClaim:
+            claimName: sql-pvc
