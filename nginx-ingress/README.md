@@ -23,7 +23,6 @@ helm uninstall traefik
 kubectl create namespace ingress-nginx
 kubectl config set-context --current --namespace=ingress-nginx
 ```
-
 ## Add Your Ingress Controller
 
 
